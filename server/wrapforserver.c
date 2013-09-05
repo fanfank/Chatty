@@ -29,6 +29,16 @@ addHead2(char buf[], int fd)
 }
 
 char *
+addHead3(char buf[], int fd)
+{
+    int key = hashFind(fd);
+    int n = sprintf(buf, "*Broadcast from %s %s %s*\n", table[key].name,
+            table[key].addr, table[key].port);
+    buf[n] = 0;
+    return (buf + n);
+}
+
+char *
 addHead4(char buf[], int key)
 {
     int n = sprintf(buf, "%s %s %s %d\n", table[key].addr,

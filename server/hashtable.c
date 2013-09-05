@@ -30,11 +30,11 @@ hashAdd(int num)
     while(cnt--)
     {
         //t("hash key in:", key);
-        Sem_wait(table[key].mutex);
+        Sem_wait(&(table[key].mutex));
         if(table[key].magic != MAGICNUM)
         {
             table[key].magic = MAGICNUM;
-            Sem_post(table[key].mutex);
+            Sem_post(&(table[key].mutex));
             return key;
         }
         Sem_post(table[key].mutex);

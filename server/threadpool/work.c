@@ -6,6 +6,7 @@ void IORead(struct queue_data *data);
 void IOWrite(struct queue_data *data);
 extern char *addHead1(char buf[], int fd);
 extern char *addHead2(char buf[], int fd);
+extern char *addHead3(char buf[], int fd);
 extern char *addHead4(char buf[], int fd);
 extern struct hashtable table[];
 extern t(char *, int);
@@ -39,6 +40,7 @@ IORead(struct queue_data *data)
         case 1: //Echo back
             data->is_read = 0;
             strcpy(addHead1(data->buf, data->fd), &tmp_buf[2]);
+            data->buf[BUFFLEN - 1] = 0;
             IOWrite(data);
             break;
 
@@ -50,6 +52,7 @@ IORead(struct queue_data *data)
 
             strcpy(addHead2(data->buf, data->fd), &tmp_buf[++i]);
             data->fd = fd;
+            data->buf[BUFFLEN - 1] = 0;
             IOWrite(data);
             break;
 
@@ -60,8 +63,9 @@ IORead(struct queue_data *data)
             {
                 if(table[i].magic == MAGICNUM && table[i].fd != data->fd)
                 {
-                    strcpy(addHead2(data->buf, oldfd), &tmp_buf[2]);
+                    strcpy(addHead3(data->buf, oldfd), &tmp_buf[2]);
                     data->fd = table[i].fd;
+                    data->buf[BUFFLEN - 1] = 0;
                     IOWrite(data);
                 }
             }
@@ -76,6 +80,7 @@ IORead(struct queue_data *data)
                 {
                     addHead4(data->buf, table[i].fd);
                     printf("data buf is: %s", data->buf);
+                    data->buf[BUFFLEN - 1] = 0;
                     IOWrite(data);
 
                     //a very bad design, just for waiting

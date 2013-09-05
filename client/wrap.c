@@ -81,8 +81,6 @@ wrapHead2(char buf[], int *head_len, int fd)
     printf("------------------------\n");
 
     int sel;
-    scanf("%d", &sel);
-
     checkInRange(&sel, 0, addr_size - 1);
 
     char *pos;
