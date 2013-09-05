@@ -1,7 +1,7 @@
 Chatty
 ======  
 
-一个非常简单的聊天小程序 —— A very simple chatting software
+####一个非常简单的聊天小程序 —— A very simple chatting software  
 You are free to download/use/modify these codes for __non-commercial__ uses  
 
 ===  
