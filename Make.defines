@@ -1,0 +1,4 @@
+CC = cc
+LIBS = -lpthread
+DEBUG = -g
+MAKE = make
