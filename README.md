@@ -7,6 +7,8 @@ You are free to download/use/modify these codes for __non-commercial__ uses
 ===  
   
 本程序主要用来熟悉多线程、网络编程，程序的界面很简单——其实就是控制台，没有界面……  
+![Frame](https://raw.github.com/fanfank/Chatty/master/appendix/screenshots/Chatty.png)  
+
 ###程序功能
 1. 聊天功能1—— *回显* ，选择模式1，即 *1 echo back* 即可  
 2. 聊天功能2—— *自定义发送对象* ，选择模式2，即 *2 Specify a receiver* ，然后会列出当前在线的用户，显示的格式是： *选择号 IP地址 端口地址 用户名称* ，输入选择号后，输入信息回车即可  
