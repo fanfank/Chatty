@@ -23,7 +23,8 @@ You are free to download/use/modify these codes for __non-commercial__ uses
 ###TODO
 > 1. 或者放到网上试试连接？  
 > 2. ~~在客户端A选择模式的时候，服务器认为客户端A在线，这样使得其它用户B可能会指定客户端A作为发送对象，这个时候如果客户端A选择模式2可能会出错~~    
-> 3. 让压力测试更加实际，加入模式2和模式3的测试等    
+> 3. 目前写套接字的工作由Worker完成，尝试写Sender进行进一步测试
+> 4. 让压力测试更加实际，加入模式2和模式3的测试等    
 
 ===
 ###版本记录 Version Logs  
