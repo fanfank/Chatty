@@ -22,11 +22,15 @@ You are free to download/use/modify these codes for __non-commercial__ uses
   
 ###TODO
 > 1. 或者放到网上试试连接？  
-> 2. 在客户端A选择模式的时候，服务器认为客户端A在线，这样使得其它用户B可能会指定客户端A作为发送对象，这个时候如果客户端A选择模式2可能会出错  
-> 3. 压力测试目前默认是回显，以后加入模式2和模式3的测试  
+> 2. ~~在客户端A选择模式的时候，服务器认为客户端A在线，这样使得其它用户B可能会指定客户端A作为发送对象，这个时候如果客户端A选择模式2可能会出错~~    
+> 3. 压力测试目前默认是回显，以后加入模式2和模式3的测试    
 
 ===
 ###版本记录 Version Logs  
+####Vesrion 0.2
+1. 加入了链表，使得在广播的时候无需遍历整个描述符数组   
+2. 增加了客户端是否就绪的判定，如果客户端A选择了模式2，在没有选择好指定发送对象的时候，其它客户端无法发送信息给客户端A    
+  
 ####Version 0.1  
 1. 第一次发布  
 
@@ -39,4 +43,4 @@ You are free to download/use/modify these codes for __non-commercial__ uses
 &copy; 2013 Reetsee.Xu
 </div>
 
-*README.md Last update: 20130905*
+*README.md Last update: 20130908*

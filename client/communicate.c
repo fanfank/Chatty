@@ -23,7 +23,9 @@ communicate(int server_fd)
             break;
         if(setBufHead(buf, mode, &head_len, server_fd) < 0)
             continue;
+        write(server_fd, "0\n\0", 4); //tell the server that "i am ready"
         startChatting(buf, mode, head_len, server_fd);
+        write(server_fd, "9\n\0", 4); //tell the server that "i am not ready"
     }
     close(server_fd);
 }
@@ -106,10 +108,16 @@ void startChatting(char head[], int mode, int head_len, int fd)
 void *threadRead(void *arg)
 {
     char buf[BUFFLEN];
+    int n;
     int fd = *((int *)arg);
     while(1)
     {
-        read(fd, buf, BUFFLEN);
+        n = read(fd, buf, BUFFLEN);
+        if(n < 0)
+        {
+            printf("Read from server error\n");
+            break;
+        }
 
         /*
          * A function that tests shared memory IPC
@@ -129,10 +137,6 @@ void printSentMsg(char buf[])
     char tmp[BUFFLEN];
     strftime(tmp, BUFFLEN - 1, "%c", gmtime(&t));
     printf("Sent - %s\n\n", tmp);
-    //printf("********** Sent **********\n");
-    //printf("You said:\n");
-    //printf("%s\n", buf);
-    //printf("********** Sent **********\n");
 }
 
 void printReceivedMsg(char buf[])

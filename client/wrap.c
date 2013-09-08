@@ -56,7 +56,6 @@ wrapHead2(char buf[], int *head_len, int fd)
             syslog(LOG_INFO, "Read f: %s\n", &address[addr_size]);
             break;
         }
-        int ii = 0;
 
         if(address[addr_size][n] != 0)
             address[addr_size][n] = 0;

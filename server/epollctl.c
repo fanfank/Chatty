@@ -70,8 +70,8 @@ runEpoll(int epollfd, int sockfd)
                     continue;
                 }
 
-                printf("Connection from %s:%s\n", table[key].addr, 
-                        table[key].port);
+                printf("Connection from %s:%s, hash key: %d\n", 
+                        table[key].addr, table[key].port, key);
 
                 ev.events = EPOLLIN | EPOLLET | EPOLLRDHUP;
                 ev.data.fd = clientfd;

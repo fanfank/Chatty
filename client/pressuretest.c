@@ -1,7 +1,7 @@
 #include "header.h"
 #define MAXCLIENT 50
 #define TESTROUND 10000
-//#define PRINTALLMSG
+#define PRINTALLMSG
 pthread_t tid_threads[MAXCLIENT];
 
 extern sem_t client_thread_sem;
@@ -74,7 +74,7 @@ test(int fd)
 
         if(strcmp(buf, res) != 0)
         {
-            printf("Receive incorrect: %s\n", res);
+            printf("Receive incorrect: \n%s\n%s\n\n", buf, res);
         }
 #ifdef PRINTALLMSG
         else

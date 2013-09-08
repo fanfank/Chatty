@@ -7,8 +7,7 @@ int stop_working;
 int initServer();
 extern struct hashtable table[];
 extern void *threadpoolStart(void *arg);
-
-void t(char s[], int i){printf("%s %d\n", s, i);fflush(stdout);}
+extern void t(char s[], int i);
 
 int
 main(int argc, char *argv[])
@@ -16,7 +15,6 @@ main(int argc, char *argv[])
     pthread_t tid_threadpool_manager;
     struct epoll_event ev;
     int sockfd = initServer();
-    //t("here", 1);
     int epollfd = initEpoll(sockfd);
 
     initHashtable(&table, MAXFD);

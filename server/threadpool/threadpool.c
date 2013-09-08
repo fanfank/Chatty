@@ -1,6 +1,6 @@
 #include "../header.h"
-#define INITWORKER 5
-#define MAXWORKER 10
+//#define INITWORKER 10
+//#define MAXWORKER 10
 
 struct job_queue job;
 struct worker_queue worker;
@@ -100,7 +100,7 @@ workerFetchesJob(void *arg)
         if(stop_working)
         {
             Pthread_mutex_unlock(&job.mutex);
-            Sem_post(&job.nempty);
+            Sem_post(&job.nstored);
             break;
         }
 
