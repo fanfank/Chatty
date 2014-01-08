@@ -33,6 +33,7 @@ wrapHead1(char buf[], int *head_len)
     strcpy(buf, "1\n");
     buf[2] = 0;
     *head_len = 2;
+    return buf;
 }
 
 char *
@@ -112,6 +113,7 @@ wrapHead3(char buf[], int *head_len)
     strcpy(buf, "3\n");
     buf[2] = 0;
     *head_len = 2;
+    return buf;
 }
 
 char *

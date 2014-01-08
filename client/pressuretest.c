@@ -1,7 +1,7 @@
 #include "header.h"
 #define MAXCLIENT 50
-#define TESTROUND 10000
-#define PRINTALLMSG
+#define TESTROUND 1000000
+//#define PRINTALLMSG
 pthread_t tid_threads[MAXCLIENT];
 
 extern sem_t client_thread_sem;
@@ -31,7 +31,7 @@ pressureTest()
             _err_quit("can't join with thread", (-1)*i);
         printf("Thread %d exits\n", i);
     }
-    Sem_destroy(client_thread_sem);
+    //Sem_destroy(&client_thread_sem);
     int total_time = time(0) - bg_time;
     if(total_time == 0)
         total_time++;
