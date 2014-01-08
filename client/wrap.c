@@ -5,6 +5,8 @@
  * wrapHead2 asks the server to send to a specific client
  * wrapHead3 asks the server to broadcast
  */
+#ifndef WRAP_C
+#define WRAP_C
 #include "header.h"
 #define MAXDISPLAY 20
 
@@ -128,4 +130,5 @@ getContent(char *dst, char *src, char delimiter)
     *(dst + i) = 0;
     return (src + i);
 }
+#endif
 

@@ -1,3 +1,5 @@
+#ifndef SHRMEMOTST_C
+#define SHRMEMOTST_C
 void sharedMemoryTest(char buf[])
 {
     /*
@@ -5,3 +7,4 @@ void sharedMemoryTest(char buf[])
      */
     return;
 }
+#endif

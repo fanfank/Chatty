@@ -1,21 +1,27 @@
 #include "header.h"
-#define DFLSERVERADDR "127.0.0.1"
+#include "semctl.h"
+#include "connectserver.h"
+#include "communicate.h"
+#include "pressuretest.h"
+#define DFLSERVERADDR "10.42.0.1"
 #define DFLSERVERPORT "4001"
 #define DFLSERVERNAME "server"
 extern void checkInRange(int *num, int range_bg, int range_ed);
 
 struct addrinfo local_info, chatmate_info, server_info;
-sem_t client_thread_sem;
+sem_t *client_thread_sem;
 
 void printWelcomeMsg();
 void runClient();
 void initAddr(struct addrinfo *, struct addrinfo *);
 void copyAddr(struct addrinfo *, struct addrinfo *);
 
+extern void pressureTest();
+
 int
 main(int argc, char *argv[])
 {
-    srand(time(0));
+    srand((uint)time(0));
     while(1)
     {
         printWelcomeMsg();
@@ -50,12 +56,11 @@ printWelcomeMsg()
 void
 runClient()
 {
-    int tmp;
     struct addrinfo info = {DFLSERVERADDR, DFLSERVERPORT, DFLSERVERNAME};
     printf("------ Setting server ------\n");
     initAddr(&server_info, &info);
 
-    Sem_init(&client_thread_sem, 0, 1);
+    client_thread_sem = Sem_init(client_thread_sem, 0, 1);
     while(1)
     {
         char c[BUFFLEN];
@@ -81,7 +86,7 @@ runClient()
     }
 
     communicate(server_fd);
-    Sem_destroy(&client_thread_sem);
+    Sem_destroy(client_thread_sem);
 }
 
 void
@@ -107,9 +112,10 @@ initAddr(struct addrinfo *dst, struct addrinfo *src)
         {
             printf("Pls enter a valid Address: ");
             scanf("%s",src->address);
-            f = validateAddress(src->address);
+            //f = validateAddress(src->address);
+            f = 0;
         }
-        len = strlen(src->address);
+        len = (int)strlen(src->address);
         if(src->address[len] != 0)
             src->address[len] = 0;
         
@@ -118,9 +124,10 @@ initAddr(struct addrinfo *dst, struct addrinfo *src)
         {
             printf("Pls enter a valid port number: ");
             scanf("%s", src->port);
-            f = validatePort(src->port);
+            //f = validatePort(src->port);
+            f = 0;
         }
-        len = strlen(src->port);
+        len = (int)strlen(src->port);
         if(src->port[len] != 0)
             src->port[len] = 0;
 

@@ -2,27 +2,40 @@
 //void Pthread_mutex_destroy(pthread_mutex_t *mutex);
 //void Sem_init(sem_t *, int, unsigned int);
 //void Sem_destroy(sem_t *);
+#ifndef SEMCTL_C
+#define SEMCTL_C
 #include "header.h"
 
-void
+extern void _err_quit(const char *, int);
+sem_t *
 Sem_init(sem_t *sem, int shared, unsigned int value)
 {
-    if(sem_init(sem, shared, value) < 0) 
-        _err_quit("sem_init error", -1);
+    //int err;
+    if((sem = sem_open("/chatty", O_CREAT, 0644, 1)) == SEM_FAILED)
+    {
+        printf("%s\n", strerror(errno));
+        _err_quit("sem_init error", errno);
+    }
+    return sem;
+    //printf("init res: %d\n", (int)sem);
 }
 
 void
 Sem_destroy(sem_t *sem)
 {
-    if(sem_destroy(sem) < 0)
+    if(sem_close(sem) < 0)
         _err_quit("sem_init error", -1);
 }
 
 void
 Sem_wait(sem_t *sem)
 {
-    if(sem_wait(sem) != 0)
+    int err;
+    if((err = sem_wait(sem)) != 0)
+    {
+        printf("%s\n", strerror(errno));
         _err_quit("sem_wait error", -1);
+    }
 }
 
 void
@@ -70,3 +83,4 @@ Pthread_mutex_unlock(pthread_mutex_t *mutex)
     if((ec = pthread_mutex_unlock(mutex)) < 0)
         _err_quit("pthread_mutex_unlock error", ec);
 }
+#endif

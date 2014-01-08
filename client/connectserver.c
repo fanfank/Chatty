@@ -1,7 +1,10 @@
+#ifndef CONNECTSERVER_C
+#define CONNECTSERVER_C
 #include "header.h"
+#include "semctl.h"
 #define MAXSLEEP 16
 
-extern sem_t client_thread_sem;
+extern sem_t *client_thread_sem;
 int connectWait(int, struct sockaddr *, size_t);
 
 int
@@ -10,9 +13,10 @@ connectServer(char addr[], char port[])
     printf("Connecting ... \n");
     int ec;
 
-    Sem_wait(&client_thread_sem);
+    printf("%d", (int)client_thread_sem);
+    Sem_wait(client_thread_sem);
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    Sem_post(&client_thread_sem);
+    Sem_post(client_thread_sem);
 
     if(sockfd < 0)
     {
@@ -42,9 +46,10 @@ int connectWait(int fd, struct sockaddr *addr, size_t size)
     int nsec;
     for(nsec = 1; nsec <= MAXSLEEP; nsec <<= 1)
     {
-        if(connect(fd, addr, size) == 0)
+        if(connect(fd, addr, (uint)size) == 0)
             return 0;
         sleep(nsec);
     }
     return -1;
 }
+#endif

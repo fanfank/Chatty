@@ -1,4 +1,7 @@
+#ifndef COMMUNICATE_C
+#define COMMUNICATE_C
 #include "header.h"
+#include "wrap.h"
 
 extern void checkInRange(int *, int, int);
 void setMode(int *);
@@ -112,7 +115,7 @@ void *threadRead(void *arg)
     int fd = *((int *)arg);
     while(1)
     {
-        n = read(fd, buf, BUFFLEN);
+        n = (int)read(fd, buf, BUFFLEN);
         if(n < 0)
         {
             printf("Read from server error\n");
@@ -123,11 +126,12 @@ void *threadRead(void *arg)
          * A function that tests shared memory IPC
          * No effects on this program's functionality
          */
-        sharedMemoryTest();
+        //sharedMemoryTest();
 
         printReceivedMsg(buf);
     }
     //pthread_exit((void *)0);
+    return (void *)0;
 }
         
 void printSentMsg(char buf[])
@@ -150,3 +154,4 @@ void printReceivedMsg(char buf[])
     printf("%s - %s\n\n", buf, tmp);
     //printf("******** Received ********\n");
 }
+#endif

@@ -9,7 +9,7 @@ release: client
 	${MAKE} clean
 
 client: ${OFILE} ${HFILE}
-	${CC} -o $@ $^ ${LIBS}
+	${CC} -o $@ ${OFILE} ${LIBS}
 
 ${OFILE}: %.o: %.c ${HFILE}
 	${CC} -c $< -o $@

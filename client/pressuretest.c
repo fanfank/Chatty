@@ -1,10 +1,16 @@
+#ifndef PRESSURETEST_C
+#define PRESSURETEST_C
 #include "header.h"
+#include "commonfunc.h"
+#include "connectserver.h"
+#include "semctl.h"
+#include "wrap.h"
 #define MAXCLIENT 50
-#define TESTROUND 1000000
+#define TESTROUND 10000
 //#define PRINTALLMSG
 pthread_t tid_threads[MAXCLIENT];
 
-extern sem_t client_thread_sem;
+extern sem_t *client_thread_sem;
 extern struct addrinfo server_info;
 void test(int);
 void *threadStart(void *);
@@ -58,7 +64,6 @@ test(int fd)
     int n, cnt = TESTROUND;
     char buf[BUFFLEN];
     char res[BUFFLEN];
-    int buf_size;
     while(cnt--)
     {
         n = sprintf(buf, "Hello, fd %d sent %d", fd, ((int)rand()) % MAX);
@@ -83,3 +88,4 @@ test(int fd)
     }
     return;
 }
+#endif

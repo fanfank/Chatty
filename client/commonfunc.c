@@ -1,3 +1,5 @@
+#ifndef COMMONFUNC_C
+#define COMMONFUNC_C
 #include "header.h"
 void
 checkInRange(int *num, int range_bg, int range_ed)
@@ -39,3 +41,4 @@ _err_quit(const char *s, int exit_code)
     printf("%s: %d\n", s, exit_code);
     exit(exit_code);
 }
+#endif
